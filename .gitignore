@@ -1,3 +1,6 @@
 .env
 dummy*.*
 cmd/main
+workspace
+script.sh
+app.log

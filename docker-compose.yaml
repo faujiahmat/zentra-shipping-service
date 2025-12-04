@@ -126,6 +126,30 @@ services:
     networks:
       - zentra-shipping-service-redis-network
 
+  zentra-shipping-service:
+    image: zentra-shipping-service:latest
+    container_name: zentra-shipping-service
+    ports:
+      - "3700:3700"
+      - "4700:4700"
+    networks:
+      - zentra-network
+      - zentra-shipping-service-network
+      - zentra-shipping-service-redis-network
+    depends_on:
+      - zentra-shipping-service-redis-node-1
+      - zentra-shipping-service-redis-node-2
+      - zentra-shipping-service-redis-node-3
+      - zentra-shipping-service-redis-node-4
+      - zentra-shipping-service-redis-node-5
+      - zentra-shipping-service-redis-node-6
+    environment:
+      - ZENTRA_APP_STATUS=DEVELOPMENT
+      - ZENTRA_SHIPPING_SERVICE_WORKSPACE=/app/workspace
+    volumes:
+      - ./workspace:/app/workspace
+    restart: on-failure
+
 volumes:
   zentra-shipping-service-redis-data-node-1:
     name: zentra-shipping-service-redis-data-node-1
